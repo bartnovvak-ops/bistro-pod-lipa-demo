@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Nieoficjalny projekt strony dla Studio Fotisto Grzegorza Nowaka — fotografia i filmy ślubne.">
+  <title>Studio Fotisto — fotografia ślubna</title>
+  <style>
+    :root { --black:#eee6d8; --panel:#f8f3e9; --white:#2b252d; --gray:#6d6670; --lime:#7026b8; --line:#382d3b28; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--black); color:var(--white); font-family:Arial,sans-serif; }
+    a { color:inherit; }
+    .notice { padding:9px 20px; background:#e1d7c6; color:#2b252d; text-align:center; font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    header { position:sticky; top:0; z-index:10; display:flex; align-items:center; justify-content:space-between; gap:30px; padding:18px 5vw; border-bottom:1px solid var(--line); background:#eee6d8ed; backdrop-filter:blur(14px); }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; font-size:16px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; }
+    .brand-mark { display:grid; place-items:center; width:34px; height:34px; background:var(--lime); color:#fffaf2; font-size:19px; font-weight:900; }
+    nav { display:flex; flex-wrap:wrap; gap:7px 24px; }
+    .tab { position:relative; padding:7px 0; border:0; background:none; color:var(--gray); font:700 11px Arial,sans-serif; letter-spacing:.09em; text-transform:uppercase; cursor:pointer; }
+    .tab:after { position:absolute; right:0; bottom:0; left:0; height:2px; background:var(--lime); content:""; transform:scaleX(0); transform-origin:left; transition:transform .2s ease; }
+    .tab[aria-selected="true"],.tab:hover { color:var(--white); }
+    .tab[aria-selected="true"]:after { transform:scaleX(1); }
+    main { width:min(1380px,90%); margin:auto; }
+    .hero { min-height:690px; display:grid; grid-template-columns:.9fr 1.1fr; align-items:center; gap:6%; padding:58px 0 78px; }
+    .hero-copy { position:relative; z-index:1; }
+    .kicker { margin:0 0 22px; color:var(--lime); font-size:10px; font-weight:800; letter-spacing:.2em; text-transform:uppercase; }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { max-width:660px; margin-bottom:22px; font-size:clamp(58px,8vw,116px); line-height:.85; letter-spacing:-.085em; text-transform:uppercase; }
+    h1 span { color:var(--lime); }
+    .lead { max-width:450px; color:#c4c5bf; font-size:15px; line-height:1.8; }
+    .buttons { display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; }
+    .button { display:inline-flex; align-items:center; gap:16px; padding:14px 18px; border:1px solid var(--white); text-decoration:none; font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; transition:.2s ease; }
+    .button.primary { border-color:var(--lime); background:var(--lime); color:var(--black); }
+    .button:hover { transform:translateY(-3px); }
+    .hero-photo { position:relative; min-height:520px; overflow:hidden; background:linear-gradient(0deg,#101210c7,transparent 68%),url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1500&q=85') center/cover; }
+    .hero-photo:before { position:absolute; top:18px; left:18px; padding:8px 10px; background:var(--lime); color:#fffaf2; content:"Zdjęcie ilustracyjne"; font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .hero-caption { position:absolute; right:26px; bottom:24px; left:26px; display:flex; align-items:end; justify-content:space-between; gap:20px; }
+    .hero-caption strong { max-width:400px; color:#111; font-size:clamp(22px,3vw,38px); letter-spacing:-.04em; text-transform:uppercase; text-shadow:0 1px 8px #fff9; }
+    .hero-caption span { color:var(--lime); font-size:10px; font-weight:700; letter-spacing:.12em; text-align:right; text-transform:uppercase; }
+    .hero-index { margin-top:28px; color:var(--gray); font-size:10px; letter-spacing:.12em; text-transform:uppercase; }
+    .hero-index b { margin-right:9px; color:var(--lime); }
+    .panels { border-top:1px solid var(--line); }
+    .panel { min-height:430px; padding:74px 0 84px; animation:fade .25s ease both; }
+    .panel[hidden] { display:none; }
+    @keyframes fade { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .panel-head { display:grid; grid-template-columns:1fr 1fr; align-items:end; gap:28px; margin-bottom:36px; }
+    .number { color:var(--lime); font-size:10px; font-weight:800; letter-spacing:.2em; }
+    h2 { max-width:800px; margin:8px 0 0; font-size:clamp(42px,6vw,78px); line-height:.94; letter-spacing:-.07em; text-transform:uppercase; }
+    .panel-intro { max-width:500px; justify-self:end; margin:0; color:var(--gray); font-size:14px; line-height:1.8; }
+    .service-grid { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+    .service { min-height:230px; padding:25px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel); }
+    .service small { color:var(--lime); font-size:10px; letter-spacing:.15em; }
+    .service h3 { margin:42px 0 12px; font-size:25px; letter-spacing:-.04em; text-transform:uppercase; }
+    .service p { max-width:340px; margin:0; color:var(--gray); font-size:13px; line-height:1.75; }
+    .film-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:14px; }
+    .film-card { position:relative; min-height:340px; display:flex; align-items:end; overflow:hidden; background:#39333a; color:#fff; text-decoration:none; }
+    .film-card:before { position:absolute; inset:0; background:linear-gradient(0deg,#17131ae8 0%,transparent 75%); content:""; }
+    .film-card:nth-child(1) { background:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85') center/cover; }
+    .film-card:nth-child(2) { background:url('https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=85') center/cover; }
+    .film-card:nth-child(3) { background:url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85') center/cover; }
+    .film-card:hover .play { transform:scale(1.08); }
+    .play { position:absolute; top:22px; left:22px; z-index:1; display:grid; place-items:center; width:48px; height:48px; border:1px solid #ffffffb0; border-radius:50%; background:#17131a7a; color:#fff; font-size:16px; transition:transform .2s ease; }
+    .film-card-text { position:relative; z-index:1; padding:22px; }
+    .film-card-text small { display:block; margin-bottom:9px; color:#e3c6ff; font-size:9px; font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
+    .film-card-text h3 { margin:0; font-size:clamp(20px,2.2vw,30px); line-height:1.05; text-transform:uppercase; }
+    .about-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:7%; align-items:center; }
+    .about-photo { position:relative; min-height:400px; background:linear-gradient(0deg,#111d,transparent 55%),url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=85') center/cover; }
+    .about-photo:after { position:absolute; right:14px; bottom:14px; padding:8px 10px; background:#151615df; color:var(--lime); content:"Zdjęcie ilustracyjne"; font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .session-intro { max-width:760px; margin:-10px 0 28px; color:var(--gray); font-size:14px; line-height:1.8; }
+    .session-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .session-shot { position:relative; min-height:270px; margin:0; overflow:hidden; background:#d7c9ba; }
+    .session-shot:first-child { grid-row:span 2; }
+    .session-shot img { display:block; width:100%; height:100%; min-height:270px; object-fit:cover; transition:transform .35s ease; }
+    .session-shot:first-child img { min-height:554px; }
+    .session-shot:hover img { transform:scale(1.035); }
+    .session-shot figcaption { position:absolute; right:0; bottom:0; left:0; padding:32px 16px 14px; background:linear-gradient(transparent,#17131ac9); color:#fffaf2; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .about-text { max-width:620px; color:#c4c5bf; font-size:15px; line-height:1.9; }
+    .fact-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .fact { padding:10px 12px; border:1px solid var(--line); color:var(--lime); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+    .portfolio-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .portfolio-card { min-height:310px; position:relative; display:flex; align-items:end; overflow:hidden; background:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85') center/cover; text-decoration:none; transition:transform .2s ease; }
+    .portfolio-card:nth-child(2) { background-image:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=900&q=85'); }
+    .portfolio-card:nth-child(3) { background-image:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=85'); }
+    .portfolio-card:nth-child(4) { background-image:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=85'); }
+    .portfolio-card:nth-child(5) { background-image:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1519225421980-888cb24c0b6e?auto=format&fit=crop&w=900&q=85'); }
+    .portfolio-card:nth-child(6) { background-image:linear-gradient(0deg,#111e,transparent 76%),url('https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=900&q=85'); }
+    .portfolio-card:hover { transform:translateY(-4px); }
+    .portfolio-card span { position:absolute; top:13px; left:13px; padding:7px 9px; background:var(--lime); color:var(--black); font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .portfolio-card h3 { margin:0; padding:22px; font-size:22px; text-transform:uppercase; }
+    .fine-print { margin:16px 0 0; color:var(--gray); font-size:11px; line-height:1.7; }
+    .contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .contact-card { padding:30px; background:var(--panel); }
+    .contact-card h3 { margin:0 0 18px; font-size:25px; text-transform:uppercase; }
+    .contact-card p { color:var(--gray); font-size:14px; line-height:1.8; }
+    .contact-card a { color:var(--lime); text-decoration-thickness:1px; text-underline-offset:4px; }
+    .contact-strip { display:flex; align-items:center; justify-content:space-between; gap:25px; margin-top:18px; padding:22px 25px; background:var(--lime); color:var(--black); }
+    .contact-strip strong { font-size:18px; text-transform:uppercase; }
+    .contact-strip a { font-weight:800; }
+    footer { display:flex; justify-content:space-between; gap:25px; padding:24px 0 34px; border-top:1px solid var(--line); color:var(--gray); font-size:10px; line-height:1.7; }
+    footer a { color:var(--lime); }
+    @media(max-width:760px) {
+      header { align-items:flex-start; flex-direction:column; padding:15px 5%; }
+      nav { gap:4px 16px; }
+      .tab { font-size:9px; }
+      main { width:90%; }
+      .hero { grid-template-columns:1fr; gap:30px; min-height:0; padding:45px 0 55px; }
+      .hero-photo { min-height:360px; }
+      .panel-head,.about-grid,.contact-layout { grid-template-columns:1fr; }
+      .panel-intro { justify-self:start; }
+      .service-grid,.portfolio-grid,.session-gallery,.film-grid { grid-template-columns:1fr; }
+      .service { min-height:180px; }
+      .service h3 { margin-top:28px; }
+      .portfolio-card { min-height:270px; }
+      .session-shot:first-child { grid-row:auto; }
+      .session-shot:first-child img { min-height:330px; }
+      .about-photo { min-height:300px; }
+      .contact-strip,footer { align-items:flex-start; flex-direction:column; }
+    }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation:none!important; transition:none!important; } }
+  </style>
+</head>
+<body>
+  <div class="notice">Nieoficjalny projekt koncepcyjny · przygotowany do nauki</div>
+  <header>
+    <a class="brand" href="#start"><span class="brand-mark">F</span><span>Studio Fotisto</span></a>
+    <nav role="tablist" aria-label="Zakładki strony Studio Fotisto">
+      <button class="tab" type="button" role="tab" id="tab-poczatek" aria-controls="panel-poczatek" aria-selected="true">Start</button>
+      <button class="tab" type="button" role="tab" id="tab-sesje" aria-controls="panel-sesje" aria-selected="false">Sesje</button>
+      <button class="tab" type="button" role="tab" id="tab-film" aria-controls="panel-film" aria-selected="false">Film</button>
+      <button class="tab" type="button" role="tab" id="tab-portfolio" aria-controls="panel-portfolio" aria-selected="false">Zdjęcia</button>
+      <button class="tab" type="button" role="tab" id="tab-studio" aria-controls="panel-studio" aria-selected="false">Studio</button>
+      <button class="tab" type="button" role="tab" id="tab-kontakt" aria-controls="panel-kontakt" aria-selected="false">Kontakt</button>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="start">
+      <div class="hero-copy">
+        <p class="kicker">Studio Fotisto · Grzegorz Nowak</p>
+        <h1>Historie, które <span>zostają.</span></h1>
+        <p class="lead">Fotografia i film ślubny. Studio Fotisto działa w Krakowie, Małopolsce i realizuje sesje na terenie całego kraju.</p>
+        <div class="buttons"><button class="button primary" data-open="sesje">Zobacz sesje ↗</button><button class="button" data-open="kontakt">Skontaktuj się ↗</button></div>
+        <p class="hero-index"><b>01 —</b> Fotografia · Film · Wspomnienia</p>
+      </div>
+      <div class="hero-photo" role="img" aria-label="Ilustracyjne zdjęcie ślubne"><div class="hero-caption"><strong>Wasz dzień. Wasza opowieść.</strong><span>Zdjęcie ilustracyjne<br>Nie jest z portfolio studia</span></div></div>
+    </section>
+    <div class="panels">
+      <section class="panel" id="panel-poczatek" role="tabpanel" aria-labelledby="tab-poczatek">
+        <div class="panel-head"><div><span class="number">01 / STUDIO FOTISTO</span><h2>Wasza historia. Pięknie uchwycona.</h2></div><p class="panel-intro">Autorski projekt strony, zbudowany w innym układzie i stylu niż poprzednia wersja restauracyjna. Informacje o studiu prowadzą do jego oficjalnego serwisu.</p></div>
+        <div class="about-grid"><div class="about-photo" role="img" aria-label="Ilustracyjne zdjęcie ślubne"></div><div><p class="kicker">O fotografie</p><p class="about-text">Studio Fotisto Grzegorza Nowaka z Krakowa prezentuje fotografię ślubną, sesje fotograficzne i realizacje filmowe. Fotografuje w Krakowie, Małopolsce oraz w innych częściach Polski. Szczegóły zakresu usług i dostępność terminu warto potwierdzić bezpośrednio ze studiem.</p><div class="fact-row"><span class="fact">Kraków</span><span class="fact">Małopolska</span><span class="fact">Cała Polska</span></div></div></div>
+      </section>
+      <section class="panel" id="panel-sesje" role="tabpanel" aria-labelledby="tab-sesje" hidden>
+        <div class="panel-head"><div><span class="number">02 / SESJE</span><h2>Wspomnienia w kadrach</h2></div><p class="panel-intro">Studio Fotisto prezentuje fotografię ślubną i sesje. Konkretne pomysły, miejsce, termin oraz szczegóły realizacji najlepiej omówić bezpośrednio z fotografem.</p></div>
+        <p class="session-intro">Poniżej są przykładowe inspiracje pokazujące różne klimaty sesji: reportaż w dniu ślubu, portret pary, plener w naturze i spokojne kadry we dwoje. Zdjęcia są ilustracyjne i nie pochodzą z portfolio Studio Fotisto.</p>
+        <div class="session-gallery">
+          <figure class="session-shot"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85" alt="Ilustracyjne zdjęcie pary podczas ślubu" loading="lazy"><figcaption>Reportaż ślubny · ilustracja</figcaption></figure>
+          <figure class="session-shot"><img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=850&q=85" alt="Ilustracyjny portret pary młodej" loading="lazy"><figcaption>Portret pary · ilustracja</figcaption></figure>
+          <figure class="session-shot"><img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=850&q=85" alt="Ilustracyjna sesja ślubna" loading="lazy"><figcaption>Sesja w plenerze · ilustracja</figcaption></figure>
+          <figure class="session-shot"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=850&q=85" alt="Ilustracyjne zdjęcie z uroczystości ślubnej" loading="lazy"><figcaption>Ważne chwile · ilustracja</figcaption></figure>
+          <figure class="session-shot"><img src="https://images.unsplash.com/photo-1519225421980-888cb24c0b6e?auto=format&fit=crop&w=850&q=85" alt="Ilustracyjna romantyczna sesja pary" loading="lazy"><figcaption>Razem · ilustracja</figcaption></figure>
+        </div>
+        <p class="fine-print">To inspiracyjne zdjęcia z Unsplash, nie prace fotografa. <a href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">Prawdziwe portfolio zobacz na stronie studia ↗</a></p>
+      </section>
+      <section class="panel" id="panel-film" role="tabpanel" aria-labelledby="tab-film" hidden>
+        <div class="panel-head"><div><span class="number">03 / FILM</span><h2>Historie w ruchu</h2></div><p class="panel-intro">Studio Fotisto prezentuje również filmy ślubne i krótkie materiały cinematic. Poniższe tytuły pochodzą z publicznej prezentacji studia.</p></div>
+        <div class="film-grid">
+          <a class="film-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span class="play" aria-hidden="true">▶</span><div class="film-card-text"><small>Highlights · 2023 · miniatura ilustracyjna</small><h3>Gabriela &amp; Mateusz</h3></div></a>
+          <a class="film-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span class="play" aria-hidden="true">▶</span><div class="film-card-text"><small>Cinematic short reels · miniatura ilustracyjna</small><h3>Crazy Love</h3></div></a>
+          <a class="film-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span class="play" aria-hidden="true">▶</span><div class="film-card-text"><small>Teledysk · 2023 · miniatura ilustracyjna</small><h3>Wesele międzynarodowe · Górski Raj</h3></div></a>
+        </div>
+        <p class="fine-print">To są klikalne odnośniki do oficjalnej strony, nie osadzone filmy. Zdjęcia w tle są ilustracyjne, nie są kadrami z nagrań. <a href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">Otwórz stronę Studio Fotisto ↗</a></p>
+      </section>
+      <section class="panel" id="panel-portfolio" role="tabpanel" aria-labelledby="tab-portfolio" hidden>
+        <div class="panel-head"><div><span class="number">04 / GALERIA ZDJĘĆ</span><h2>Fotografie</h2></div><p class="panel-intro">Tutaj są wyłącznie zdjęcia i inspiracje fotograficzne. Zakładka „Film” jest osobno i dotyczy nagrań wideo.</p></div>
+        <div class="portfolio-grid">
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Portret pary ↗</h3></a>
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Sesja plenerowa ↗</h3></a>
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Ślubne detale ↗</h3></a>
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Ważne chwile ↗</h3></a>
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Razem z bliskimi ↗</h3></a>
+          <a class="portfolio-card" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener"><span>Ilustracja</span><h3>Światło i emocje ↗</h3></a>
+        </div>
+        <p class="fine-print">Zdjęcia są ilustracyjne, nie przedstawiają prac fotografa. <a href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">Zobacz prawdziwe zdjęcia na stronie Studio Fotisto ↗</a></p>
+      </section>
+      <section class="panel" id="panel-studio" role="tabpanel" aria-labelledby="tab-studio" hidden>
+        <div class="panel-head"><div><span class="number">05 / INFORMACJE</span><h2>Studio Fotisto</h2></div><p class="panel-intro">Grzegorz Nowak przedstawia Studio Fotisto jako fotografa ślubnego z Krakowa. Na stronie studia można znaleźć fotografie, filmy i historie z realizacji.</p></div>
+        <p class="session-intro">Studio opisuje swoją specjalizację jako nowoczesną fotografię ślubną. Działa w Krakowie i Małopolsce, a sesje realizuje również w innych częściach Polski. Ta niezależna propozycja strony zbiera najważniejsze informacje w jednym miejscu; szczegóły zlecenia należy ustalić bezpośrednio z fotografem.</p>
+        <div class="service-grid"><article class="service"><small>FOTOGRAF</small><h3>Grzegorz Nowak</h3><p>Studio Fotisto jest prezentowane pod nazwiskiem Grzegorza Nowaka.</p></article><article class="service"><small>BAZA</small><h3>Kraków</h3><p>Studio opisuje realizacje w Krakowie i Małopolsce.</p></article><article class="service"><small>ZASIĘG</small><h3>Cała Polska</h3><p>Publiczna prezentacja wskazuje również realizacje w całym kraju.</p></article></div>
+        <div class="panel-head" style="margin-top:48px"><div><span class="number">PRZED ZAPYTANIEM</span><h2>Co ustalić?</h2></div><p class="panel-intro">Przy pierwszej wiadomości warto podać datę i miejsce uroczystości oraz zapytać o dostępność, zakres zdjęć lub filmu i aktualną cenę.</p></div>
+        <div class="service-grid"><article class="service"><small>01 / TERMIN</small><h3>Data i miejsce</h3><p>Podaj planowaną datę, miejscowość i orientacyjny plan dnia, aby zapytać o dostępność.</p></article><article class="service"><small>02 / ZAKRES</small><h3>Zdjęcia i film</h3><p>Zapytaj, które elementy fotografii i filmu są dostępne w wybranym zakresie.</p></article><article class="service"><small>03 / SZCZEGÓŁY</small><h3>Oferta i cena</h3><p>Poproś o aktualny cennik, warunki współpracy i przewidywany termin przekazania materiałów.</p></article></div>
+      </section>
+      <section class="panel" id="panel-kontakt" role="tabpanel" aria-labelledby="tab-kontakt" hidden>
+        <div class="panel-head"><div><span class="number">06 / KONTAKT</span><h2>Porozmawiajmy</h2></div><p class="panel-intro">Najświeższe informacje o terminach, cenach i zakresie usług potwierdź bezpośrednio w Studio Fotisto.</p></div>
+        <div class="contact-layout"><div class="contact-card"><h3>Oficjalna strona</h3><p>Portfolio oraz informacje o studiu znajdziesz tutaj:</p><a class="button primary" href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">studiofotisto.pl ↗</a></div><div class="contact-card"><h3>Telefon</h3><p>Numer opublikowany w publicznym profilu branżowym; przed użyciem na docelowej stronie warto potwierdzić jego aktualność.</p><a href="tel:+48502063084">502 063 084 ↗</a></div></div>
+        <div class="contact-strip"><strong>Studio Fotisto · Grzegorz Nowak</strong><a href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">Otwórz stronę studia ↗</a></div>
+      </section>
+    </div>
+  </main>
+  <footer><span>Nieoficjalny projekt koncepcyjny, niepowiązany ze Studio Fotisto.</span><span>Informacje: <a href="https://www.studiofotisto.pl/" target="_blank" rel="noopener">oficjalna strona</a>. Zdjęcia są ilustracyjne i nie stanowią portfolio.</span></footer>
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    function showTab(name) {
+      tabs.forEach(tab => {
+        const active = tab.id === `tab-${name}`;
+        tab.setAttribute('aria-selected', String(active));
+        document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+      });
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.id.replace('tab-', ''))));
+    document.querySelectorAll('[data-open]').forEach(button => button.addEventListener('click', () => {
+      showTab(button.dataset.open);
+      document.querySelector('.panels').scrollIntoView({ behavior:'smooth', block:'start' });
+    }));
+  </script>
+</body>
+</html>
